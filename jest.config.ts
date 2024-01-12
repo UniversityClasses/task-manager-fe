@@ -159,7 +159,8 @@ const config: Config = {
   testMatch: [
     // "**/__tests__/**/*.[jt]s?(x)",
     // "**/?(*.)+(spec|test).[tj]s?(x)"
-    "**/src/app/app.component.spec.ts"
+    "**/src/app/app.component.spec.ts",
+    "**/src/app/tasks/task-list/task-list.component.spec.ts"
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
