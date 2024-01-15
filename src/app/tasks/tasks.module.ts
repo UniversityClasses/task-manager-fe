@@ -6,7 +6,8 @@ import { TaskTableItemComponent } from './task-table-item/task-table-item.compon
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskFilterComponent } from './task-filter/task-filter.component';
 import { TaskService } from './services/task.service';
-
+import { HttpClientModule } from '@angular/common/http';
+import { TasksRoutingModule } from './tasks-routing.module';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { TaskService } from './services/task.service';
     TaskFilterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    TasksRoutingModule
   ],
   exports: [
     TaskListComponent

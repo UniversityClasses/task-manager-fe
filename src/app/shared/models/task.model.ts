@@ -2,6 +2,18 @@ export interface Task {
   uuid: string;
   name: string;
   description: string;
-  category: string;
-  status: string;
+  categories: Category[];
+  status: Status;
+}
+
+export interface Category {
+  uuid: string;
+  name: string;
+  description: string;
+}
+
+export interface Status {
+  uuid: string;
+  name: string;
+  description: string;
 }

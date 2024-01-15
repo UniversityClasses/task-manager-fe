@@ -1,34 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 import { Task } from 'src/app/shared/models/task.model';
+import { Observable, catchError, of, throwError } from 'rxjs';
 
 @Injectable()
 export class TaskService {
+  private url = 'http://localhost:8080/taskssss';
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<Task[]> {
-    return of([{
-      uuid: '1',
-      name: 'tarea 1 name',
-      description: 'tarea 1 description',
-      category: 'tarea 1 category',
-      status: 'tarea 1 status',
-    },
-    {
-      uuid: '2',
-      name: 'tarea 2 name',
-      description: 'tarea 2 description',
-      category: 'tarea 2 category',
-      status: 'tarea 2 status',
-    },
-    {
-      uuid: '2',
-      name: 'tarea 2 name',
-      description: 'tarea 2 description',
-      category: 'tarea 2 category',
-      status: 'tarea 2 status',
-    }]);
+    return this.httpClient.get<Task[]>(this.url)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return of([{name: "test", description: "test"} as Task])
+        })
+      );
+  }
+
+  getOne(taskUuid: string): Observable<Task> {
+    return this.httpClient.get<Task>(`${this.url}/${taskUuid}`);
+  }
+
+  save(task: Task) {
+    return this.httpClient.post<Task>(this.url, task)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => ({responseError: error, hasError: true, source: 'taskSave'}))
+        })
+      );
+  }
+
+  delete(taskUuid: string) {
+    return this.httpClient.delete<Task>(`${this.url}/${taskUuid}`);
   }
 }
