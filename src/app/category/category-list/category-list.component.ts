@@ -8,6 +8,5 @@ import { TaskService } from 'src/app/tasks/services/task.service';
 })
 export class CategoryListComponent {
   constructor(private taskService: TaskService) {
-    console.log(taskService.getAll());
   }
 }

@@ -2,20 +2,29 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Task } from 'src/app/shared/models/task.model';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, first, of, tap, throwError } from 'rxjs';
 
 @Injectable()
 export class TaskService {
-  private url = 'http://localhost:8080/taskssss';
 
-  constructor(private httpClient: HttpClient) { }
+  private url = 'http://localhost:8080/tasks';
+  private taskCache = new BehaviorSubject<Task[]>([]);
+  taskList$ = this.taskCache.asObservable();
 
-  getAll(): Observable<Task[]> {
+  constructor(private httpClient: HttpClient) {
+    this.getAll()
+      .pipe(first())
+      .subscribe((tasks) => {
+        this.taskCache.next(tasks);
+      });
+  }
+
+  private getAll(): Observable<Task[]> {
     return this.httpClient.get<Task[]>(this.url)
       .pipe(
         catchError((error) => {
           console.error(error);
-          return of([{name: "test", description: "test"} as Task])
+          return of([])
         })
       );
   }
@@ -27,6 +36,24 @@ export class TaskService {
   save(task: Task) {
     return this.httpClient.post<Task>(this.url, task)
       .pipe(
+        tap((taskSaved) => this.taskCache.next([...this.taskCache.value, taskSaved])),
+        catchError((error) => {
+          return throwError(() => ({responseError: error, hasError: true, source: 'taskSave'}))
+        })
+      );
+  }
+
+  edit(task: Task): Observable<Task> {
+    return this.httpClient.put<Task>(this.url, task)
+      .pipe(
+        tap((taskSaved) => {
+          const tasks = this.taskCache.value;
+          const index = tasks.findIndex(task => task.uuid === taskSaved.uuid);
+          if (index >= 0) {
+            tasks[index] = taskSaved;
+          }
+          this.taskCache.next(tasks);
+        }),
         catchError((error) => {
           return throwError(() => ({responseError: error, hasError: true, source: 'taskSave'}))
         })

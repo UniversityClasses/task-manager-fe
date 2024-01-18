@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from 'src/app/shared/models/task.model';
+import { EditTaskService } from '../services/edit-task.service';
 
 @Component({
   selector: 'app-task-table',
@@ -8,5 +9,13 @@ import { Task } from 'src/app/shared/models/task.model';
 })
 export class TaskTableComponent {
   @Input() taskList: Task[] | null = [];
-  @Output() openTask = new EventEmitter<Task>();
+
+  constructor(private editTaskService: EditTaskService) {
+
+
+  }
+
+  openTask(task: Task) {
+    this.editTaskService.openTaskToEdit(task);
+  }
 }

@@ -9,21 +9,26 @@ import { Task } from 'src/app/shared/models/task.model';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
+
   taskList$: Observable<Task[]> = of([]);
-  taskNames$: Observable<String[]> = of([]);
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.taskList$ = this.taskService.getAll();
+    this.taskList$ = this.taskService.taskList$;
+  }
 
-    this.taskList$.subscribe((tasks) => {
-      const names = tasks.map(t => t.name);
-      console.log(names);
-    });
+  onSaveTask(task: Task) {
+    console.log('onSaveTask')
 
-    this.taskNames$ = this.taskList$.pipe(
-      map((tasks) => tasks.map(t => t.name)),
-    )
+    if (task.uuid) {
+      this.taskService.edit(task).subscribe((task) => {
+        console.log('Task updated', task);
+      });
+    } else {
+      this.taskService.save(task).subscribe((tasl) => {
+        console.log('Task created', task);
+      });
+    }
   }
 
 }

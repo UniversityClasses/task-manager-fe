@@ -8,6 +8,7 @@ import { TaskFilterComponent } from './task-filter/task-filter.component';
 import { TaskService } from './services/task.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TasksRoutingModule } from './tasks-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TasksRoutingModule } from './tasks-routing.module';
   imports: [
     CommonModule,
     HttpClientModule,
-    TasksRoutingModule
+    TasksRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
     TaskListComponent
