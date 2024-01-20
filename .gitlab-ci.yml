@@ -101,5 +101,8 @@ deploy-staging:
     NODE_ENV: staging
   script:
     - echo "Deploying to $CI_ENVIRONMENT_NAME"
-    - echo "Making actions to deploy to staging"
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_PRODUCTION_KEY
     - echo "Deployed to $CI_ENVIRONMENT_NAME"
