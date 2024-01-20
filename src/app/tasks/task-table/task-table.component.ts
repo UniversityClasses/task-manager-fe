@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Task } from 'src/app/shared/models/task.model';
 import { EditTaskService } from '../services/edit-task.service';
 
