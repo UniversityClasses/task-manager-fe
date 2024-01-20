@@ -1,6 +1,6 @@
 default:
   interruptible: true
-  image: node:lts-alpine
+  image: node:lts-alpine3.14
 
 stages:
   - dependencies
