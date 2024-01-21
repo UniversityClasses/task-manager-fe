@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Category, Status, Task } from 'src/app/shared/models/task.model';
 import { EditTaskService } from '../services/edit-task.service';
+import { Task } from 'src/app/shared/models/task.model';
+import { Category } from 'src/app/shared/models/category.model';
+import { Status } from 'src/app/shared/models/status.model';
 
 @Component({
   selector: 'app-task-form',

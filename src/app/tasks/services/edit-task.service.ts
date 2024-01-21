@@ -10,9 +10,6 @@ export class EditTaskService {
   private taskOpened = new Subject<Task>();
   taskToEdit$ = this.taskOpened.asObservable();
 
-  constructor() { }
-
-
   openTaskToEdit(task: Task) {
     this.taskOpened.next(task);
   }

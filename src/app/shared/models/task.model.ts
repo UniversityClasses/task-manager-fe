@@ -1,19 +1,10 @@
-export interface Task {
+import { Category } from "./category.model";
+import { Status } from "./status.model";
+
+export class Task {
   uuid: string;
   name: string;
   description: string;
   categories: Category[];
   status: Status;
-}
-
-export interface Category {
-  uuid: string;
-  name: string;
-  description: string;
-}
-
-export interface Status {
-  uuid: string;
-  name: string;
-  description: string;
 }
