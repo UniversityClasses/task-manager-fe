@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoryTableComponent } from './category-table/category-table.component';
 import { CategoryFilterComponent } from './category-filter/category-filter.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -20,7 +21,8 @@ import { CategoryFormComponent } from './category-form/category-form.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    CategoryRoutingModule
+    CategoryRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
     CategoryListComponent

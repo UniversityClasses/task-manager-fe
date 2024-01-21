@@ -1,7 +1,7 @@
 <form [formGroup]="formGroup" novalidate>
   <div class="mb-3">
     <label for="nameControl" class="form-label">Name</label>
-    <input type="email" class="form-control" id="nameControl" formControlName="name" [ngClass]="{'is-invalid': !!nameErrors && !this.formGroup.controls.name.pristine}" autocomplete="off">
+    <input type="text" class="form-control" id="nameControl" formControlName="name" [ngClass]="{'is-invalid': !!nameErrors && !this.formGroup.controls.name.pristine}" autocomplete="off">
     <div *ngIf="nameErrors" class="invalid-feedback">
       <span *ngIf="nameErrors['required']">Name is Required</span>
       <span *ngIf="nameErrors['minlength']">Name should be greater than 3 characters</span>

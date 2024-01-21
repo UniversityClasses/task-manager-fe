@@ -11,7 +11,7 @@
       <td>{{ category.name}}</td>
       <td>{{ category.description}}</td>
       <td>
-        <button type="button" class="btn btn-outline-warning">Edit</button>
+        <button type="button" class="btn btn-outline-warning" (click)="openCategory(category)">Edit</button>
         <button type="button" class="btn btn-outline-danger" (click)="delete(category)">Delete</button>
       </td>
     </tr>

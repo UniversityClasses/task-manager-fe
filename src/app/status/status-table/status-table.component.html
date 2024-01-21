@@ -1,0 +1,19 @@
+<table class="table">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let status of statuses" class="text-center">
+        <td>{{ status.name}}</td>
+        <td>{{ status.description}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-warning" (click)="openCategory(status)">Edit</button>
+          <button type="button" class="btn btn-outline-danger" (click)="delete(status)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

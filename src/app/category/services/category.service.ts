@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Category } from 'src/app/shared/models/category.model';
 
 @Injectable({
@@ -8,7 +8,10 @@ import { Category } from 'src/app/shared/models/category.model';
 export class CategoryService {
 
   private url = 'http://localhost:8080/categories';
-  constructor(private httpClient: HttpClient) {  }
+  
+  saveCategory = new EventEmitter<Category>();
+
+  constructor(private httpClient: HttpClient) { }
 
   getAll(){
     return this.httpClient.get<Category[]>(this.url);

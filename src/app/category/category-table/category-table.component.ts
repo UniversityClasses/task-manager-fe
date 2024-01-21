@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/shared/models/category.model';
 import { CategoryService } from '../services/category.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-table',
@@ -11,13 +10,17 @@ import { Router } from '@angular/router';
 export class CategoryTableComponent implements OnInit{
 
   categories: Category[];
-
-  constructor(private categoryService: CategoryService, private router: Router){}
+  
+  constructor(private categoryService: CategoryService){}
 
   ngOnInit(): void {
     this.categoryService.getAll()
         .subscribe(category=>{
           this.categories=category;
+        })
+    this.categoryService.saveCategory
+        .subscribe((category)=>{
+          this.categories.push(category);
         })
   }
 
@@ -27,9 +30,13 @@ export class CategoryTableComponent implements OnInit{
       this.categoryService.delete(category.uuid)
         .subscribe(category =>{
           console.log(category);
-          this.router.navigate(['/app-category-list']);
-        })
+          this.categories=this.categories.filter(category1=> category1.uuid!==category.uuid)
+        })        
     }
+  }
+
+  openCategory(category: Category) {    
+    confirm("Ingreso "+category.name);
   }
 
 }

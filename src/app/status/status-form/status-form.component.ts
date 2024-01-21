@@ -1,15 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Category } from 'src/app/shared/models/category.model';
-import { CategoryService } from '../services/category.service';
+import { StatusService } from '../services/status.service';
+import { Status } from 'src/app/shared/models/status.model';
 
 @Component({
-  selector: 'app-category-form',
-  templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.scss']
+  selector: 'app-status-form',
+  templateUrl: './status-form.component.html',
+  styleUrls: ['./status-form.component.scss']
 })
-export class CategoryFormComponent implements OnInit{
-  
+export class StatusFormComponent implements OnInit{
+
   formGroup = new FormGroup({
     uuid: new FormControl<string | null>(null),
     name: new FormControl<string>('', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]),
@@ -24,9 +24,10 @@ export class CategoryFormComponent implements OnInit{
     return this.formGroup.controls.description.errors;
   }
 
-  constructor(private categoryServicio: CategoryService ){}
   ngOnInit(): void {
   }
+
+  constructor(private statusService: StatusService){}
 
   save() {
     if (!this.formGroup.valid) {
@@ -34,13 +35,12 @@ export class CategoryFormComponent implements OnInit{
       return;
     }
     
-    const categoryFormValue = this.formGroup.value;
-    this.categoryServicio.save(categoryFormValue as Category)
-        .subscribe((category)=>{
-          console.log(category);
-          this.categoryServicio.saveCategory.emit(category);
+    const statusFormValue = this.formGroup.value;
+    this.statusService.save(statusFormValue as Status)
+        .subscribe((status)=>{
+          console.log(status);
+          this.statusService.saveStatus.emit(status);
         })
   }
-
 
 }
