@@ -1,4 +1,4 @@
-<div class="card" *ngIf="task">
+<div class="card mt-1" *ngIf="task">
   <div class="card-body">
     <!-- <div class="card-body"> -->
       <h5 class="card-title">{{task.name}}</h5>
@@ -11,5 +11,8 @@
           <span *ngIf="task.status" class="badge bg-secondary fs-6">{{task.status.name}}</span>
         </p>
       </div>
+  </div>
+  <div class="card-footer">
+    <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
   </div>
 </div>
